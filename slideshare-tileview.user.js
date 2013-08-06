@@ -9,8 +9,9 @@
 // ==/UserScript==
 
 (function(){
-    // Make tiles
     var player = document.querySelector(".player");
+
+    // Make tiles
     var slides = player.querySelectorAll(".slide_container .slide");
     var tileContainer = document.createElement("div");
     tileContainer.setAttribute("class", "_tile_container");
