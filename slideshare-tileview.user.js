@@ -43,15 +43,17 @@
             ".tile_mode .pointly {pointer-events:none;}" +
             ".tile_mode .stage {overflow-y:scroll !important;}" +
 
-            "._btnToggleTile {background:none !important; float:right !important; text-indent:0 !important; padding-top:3px !important;}" +
-            "._btnToggleTile:after {color:black; content:'\\25A6'; font-size:21px;}" +
-            ".tile_mode ._btnToggleTile:after {color:black; content:'\\25A3'; font-size:21px;}";
+            "._btnToggleTile {color:black; background:none !important; float:right !important; text-indent:0 !important; padding-top:3px !important;}" +
+            "._btnToggleTile:hover {color:#333; text-decoration:none;}" +
+            "._btnToggleTile:after {content:'\\25A6'; font-size:21px;}" +
+            ".tile_mode ._btnToggleTile:after {content:'\\25A3';}";
     document.head.appendChild(style);
 
     // Add a button
     var toggleButton = document.createElement("a");
     toggleButton.setAttribute("href", "#");
     toggleButton.setAttribute("class", "_btnToggleTile");
+    toggleButton.setAttribute("title", "Toggle Tile Mode");
     toggleButton.addEventListener("click", toggleTileMode);
     var navActions = player.querySelector(".navActions");
     navActions.insertBefore(toggleButton, navActions.querySelector(".goToSlideLabel"));
