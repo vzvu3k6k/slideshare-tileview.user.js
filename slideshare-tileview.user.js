@@ -17,8 +17,8 @@
     tileContainer.setAttribute("class", "_tile_container");
     Array.prototype.forEach.call(slides, function(slide){
         var img = document.createElement("img");
-        img.setAttribute("src", slide.querySelector("img").getAttribute("data-small"));
-        img.setAttribute("data-index", slide.getAttribute("data-index"));
+        img.setAttribute("src", slide.querySelector("img").dataset.small);
+        img.dataset.index = slide.dataset.index;
         tileContainer.appendChild(img);
     });
     tileContainer.addEventListener("click", function(event){
@@ -26,7 +26,7 @@
             toggleTileMode();
             location.href = "javascript:(" + function(index){
                 player.play(index);
-            } + ")(" + event.target.getAttribute("data-index") +")";
+            } + ")(" + event.target.dataset.index +")";
         }
     });
     player.appendChild(tileContainer);
