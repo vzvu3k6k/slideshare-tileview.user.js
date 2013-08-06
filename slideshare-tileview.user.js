@@ -17,7 +17,16 @@
     Array.prototype.forEach.call(slides, function(slide){
         var img = document.createElement("img");
         img.setAttribute("src", slide.querySelector("img").getAttribute("data-small"));
+        img.setAttribute("data-index", slide.getAttribute("data-index"));
         tileContainer.appendChild(img);
+    });
+    tileContainer.addEventListener("click", function(event){
+        if(event.target.tagName.toLowerCase() == "img"){
+            toggleTileMode();
+            location.href = "javascript:(" + function(index){
+                player.play(index);
+            } + ")(" + event.target.getAttribute("data-index") +")";
+        }
     });
     player.appendChild(tileContainer);
 
@@ -26,7 +35,8 @@
     style.textContent =
             "._tile_container {display:none; overflow-y:scroll; position:absolute; top:0;}" +
             ".tile_mode ._tile_container {display:block;}" +
-            "._tile_container img {float:left; width:205px !important; background:none; display:block; }" +
+            "._tile_container img {float:left; width:205px !important; background:none; display:block; cursor:pointer;}" +
+            "._tile_container img:hover {opacity: 0.8;}" +
 
             ".tile_mode .slide_container {display:none}" +
             ".tile_mode .pointly {pointer-events:none;}" +
