@@ -41,11 +41,12 @@
     var toggleButton = document.createElement("a");
     toggleButton.setAttribute("href", "#");
     toggleButton.setAttribute("class", "_btnToggleTile");
+    toggleButton.addEventListener("click", toggleTileMode);
     var navActions = player.querySelector(".navActions");
-    navActions.insertBefore(toggleButton, navActions.children[0]);
+    navActions.insertBefore(toggleButton, navActions.querySelector(".goToSlideLabel"));
 
-    navActions.addEventListener("click", function(){
+    function toggleTileMode(){
         tileContainer.setAttribute("style", player.querySelector(".stage").getAttribute("style"));
         player.classList.toggle("tile_mode");
-    });
+    }
 })();
