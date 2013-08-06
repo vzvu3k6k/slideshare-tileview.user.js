@@ -19,14 +19,13 @@
         img.setAttribute("src", slide.querySelector("img").getAttribute("data-small"));
         tileContainer.appendChild(img);
     });
-    var stage = player.querySelector(".stage");
-    stage.appendChild(tileContainer);
+    player.appendChild(tileContainer);
 
     // Add styles
     var style = document.createElement("style");
     style.textContent =
-            "._tile_container {display: none;}" +
-            ".tile_mode ._tile_container {display: block;}" +
+            "._tile_container {display:none; overflow-y:scroll; position:absolute; top:0;}" +
+            ".tile_mode ._tile_container {display:block;}" +
             "._tile_container img {float:left; width:205px !important; background:none; display:block; }" +
 
             ".tile_mode .slide_container {display:none}" +
@@ -45,11 +44,8 @@
     var navActions = player.querySelector(".navActions");
     navActions.insertBefore(toggleButton, navActions.children[0]);
 
-    var originalStyle = stage.getAttribute("style");
     navActions.addEventListener("click", function(){
+        tileContainer.setAttribute("style", player.querySelector(".stage").getAttribute("style"));
         player.classList.toggle("tile_mode");
-        setTimeout(function(){
-            stage.setAttribute("style", originalStyle);
-        }, 1000);
     });
 })();
