@@ -25,20 +25,24 @@
     tileContainer.addEventListener("click", function(event){
         if(event.target.tagName.toLowerCase() == "img"){
             toggleTileMode();
-            location.href = "javascript:(" + function(index){
-                /*
-                  In `http://www.slideshare.net/{username}/{slidename}`,
-                  we can control the slide player by calling `player.play`
-
-                  In `http://www.slideshare.net/fullscreen/...` or
-                     `http://www.slideshare.net/slideshow/embed_code/...`,
-                  `player` is a DOM element and we have to call `jsplayer.play`.
-                 */
-                (window.jsplayer || window.player).play(index);
-            } + ")(" + event.target.dataset.index +")";
+            showSlide(event.target.dataset.index);
         }
     });
     player.appendChild(tileContainer);
+
+    function showSlide(index){
+        /*
+          In `http://www.slideshare.net/{username}/{slidename}`,
+          we can show the slide player by calling `player.play`
+
+          In `http://www.slideshare.net/fullscreen/...` or
+          `http://www.slideshare.net/slideshow/embed_code/...`,
+          `player` is a DOM element and we have to call `jsplayer.play`.
+        */
+        location.href = "javascript:(" + function(index){
+            (window.jsplayer || window.player).play(index);
+        } + ")(" + index +")";
+    }
 
     // Add styles
     var style = document.createElement("style");
