@@ -10,6 +10,7 @@
 
 (function(){
     var player = document.querySelector(".player");
+    if(!player) return;
 
     // Make tiles
     var slides = player.querySelectorAll(".slide_container .slide");
