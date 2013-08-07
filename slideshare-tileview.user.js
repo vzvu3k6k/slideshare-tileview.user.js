@@ -48,18 +48,18 @@
     var style = document.createElement("style");
     style.textContent =
             "._tile_container {display:none; overflow-y:scroll; position:absolute; top:0;}" +
-            ".tile_mode ._tile_container {display:block;}" +
+            "._tile_mode ._tile_container {display:block;}" +
             "._tile_container img {float:left; width:205px !important; background:none; display:block; cursor:pointer;}" +
             "._tile_container img:hover {opacity: 0.8;}" +
 
-            ".tile_mode .slide_container {display:none}" +
-            ".tile_mode .pointly {pointer-events:none;}" +
-            ".tile_mode .stage {overflow-y:scroll !important;}" +
+            "._tile_mode .slide_container {display:none}" +
+            "._tile_mode .pointly {pointer-events:none;}" +
+            "._tile_mode .stage {overflow-y:scroll !important;}" +
 
             "._btnToggleTile {color:black; background:none !important; float:right !important; text-indent:0 !important; padding-top:3px !important;}" +
             "._btnToggleTile:hover {color:#333; text-decoration:none;}" +
             "._btnToggleTile:after {content:'\\25A6'; font-size:21px;}" +
-            ".tile_mode ._btnToggleTile:after {content:'\\25A3';}";
+            "._tile_mode ._btnToggleTile:after {content:'\\25A3';}";
     document.head.appendChild(style);
 
     // Add a button
@@ -73,6 +73,6 @@
 
     function toggleTileMode(){
         tileContainer.setAttribute("style", player.querySelector(".stage").getAttribute("style"));
-        player.classList.toggle("tile_mode");
+        player.classList.toggle("_tile_mode");
     }
 })();
