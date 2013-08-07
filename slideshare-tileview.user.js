@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           slideshare tileview
 // @description    Shows slides in tile
-// @version        1.1
+// @version        1.2
 // @author         vzvu3k6k
 // @match          http://www.slideshare.net/*
 // @namespace      http://vzvu3k6k.tk/
