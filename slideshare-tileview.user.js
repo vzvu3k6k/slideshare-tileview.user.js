@@ -26,7 +26,15 @@
         if(event.target.tagName.toLowerCase() == "img"){
             toggleTileMode();
             location.href = "javascript:(" + function(index){
-                player.play(index);
+                /*
+                  In `http://www.slideshare.net/{username}/{slidename}`,
+                  we can control the slide player by calling `player.play`
+
+                  In `http://www.slideshare.net/fullscreen/...` or
+                     `http://www.slideshare.net/slideshow/embed_code/...`,
+                  `player` is a DOM element and we have to call `jsplayer.play`.
+                 */
+                (window.jsplayer || window.player).play(index);
             } + ")(" + event.target.dataset.index +")";
         }
     });
