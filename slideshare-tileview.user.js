@@ -45,22 +45,55 @@
     }
 
     // Add styles
+    var tileWidth = (function(){
+        var baseTileWidth = 205;
+        var stageWidth = player.querySelector(".stage").getBoundingClientRect().width;
+        var tileNumInRow = Math.floor(stageWidth / baseTileWidth);
+        return (stageWidth - getScrollbarWidth()) / Math.max(tileNumInRow, 2);
+    })();
     var style = document.createElement("style");
     style.textContent =
             "._tile_container {display:none; overflow-y:scroll; position:absolute; top:0;}" +
             "._tile_mode ._tile_container {display:block;}" +
-            "._tile_container img {float:left; width:205px !important; background:none; display:block; cursor:pointer;}" +
+            "._tile_container img {float:left; width:" + tileWidth + "px !important; background:none; display:block; cursor:pointer;}" +
             "._tile_container img:hover {opacity: 0.8;}" +
 
             "._tile_mode .slide_container {display:none}" +
             "._tile_mode .pointly {pointer-events:none;}" +
             "._tile_mode .stage {overflow-y:scroll !important;}" +
 
-            "._btnToggleTile {color:black; background:none !important; float:right !important; text-indent:0 !important; padding-top:3px !important;}" +
-            "._btnToggleTile:hover {color:#333; text-decoration:none;}" +
+            "._btnToggleTile {color:black; background:none !important; float:right !important; text-indent:0 !important; padding-top:3px !important; text-decoration:none;}" +
+            "._btnToggleTile:hover {color:#333;}" +
             "._btnToggleTile:after {content:'\\25A6'; font-size:21px;}" +
             "._tile_mode ._btnToggleTile:after {content:'\\25A3';}";
     document.head.appendChild(style);
+
+    // borrowed from
+    //   Getting scroll bar width using JavaScript - Stack Overflow
+    //   http://stackoverflow.com/questions/13382516/getting-scroll-bar-width-using-javascript
+    // written by lostsource
+    function getScrollbarWidth() {
+        var outer = document.createElement("div");
+        outer.style.visibility = "hidden";
+        outer.style.width = "100px";
+        document.body.appendChild(outer);
+
+        var widthNoScroll = outer.offsetWidth;
+        // force scrollbars
+        outer.style.overflow = "scroll";
+
+        // add innerdiv
+        var inner = document.createElement("div");
+        inner.style.width = "100%";
+        outer.appendChild(inner);
+
+        var widthWithScroll = inner.offsetWidth;
+
+        // remove divs
+        outer.parentNode.removeChild(outer);
+
+        return widthNoScroll - widthWithScroll;
+    }
 
     // Add a button
     var toggleButton = document.createElement("a");
