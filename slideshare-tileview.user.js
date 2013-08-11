@@ -33,7 +33,7 @@
     function showSlide(index){
         /*
           In `http://www.slideshare.net/{username}/{slidename}`,
-          we can show the slide player by calling `player.play`
+          we can show the slide by calling `player.play`
 
           In `http://www.slideshare.net/fullscreen/...` or
           `http://www.slideshare.net/slideshow/embed_code/...`,
