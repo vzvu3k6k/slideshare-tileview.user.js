@@ -18,7 +18,7 @@
     tileContainer.setAttribute("class", "_tile_container");
     Array.prototype.forEach.call(slides, function(slide){
         var img = document.createElement("img");
-        img.setAttribute("src", slide.querySelector("img").dataset.small);
+        img.setAttribute("src", slide.querySelector("img").dataset.normal);
         img.dataset.index = slide.dataset.index;
         tileContainer.appendChild(img);
     });
