@@ -12,24 +12,6 @@
     var player = document.querySelector(".player");
     if(!player) return;
 
-    // Make tiles
-    var slides = player.querySelectorAll(".slide_container .slide");
-    var tileContainer = document.createElement("div");
-    tileContainer.setAttribute("class", "_tile_container");
-    Array.prototype.forEach.call(slides, function(slide){
-        var img = document.createElement("img");
-        img.setAttribute("src", slide.querySelector("img").dataset.normal);
-        img.dataset.index = slide.dataset.index;
-        tileContainer.appendChild(img);
-    });
-    tileContainer.addEventListener("click", function(event){
-        if(event.target.tagName.toLowerCase() == "img"){
-            toggleTileMode();
-            showSlide(event.target.dataset.index);
-        }
-    });
-    player.appendChild(tileContainer);
-
     function showSlide(index){
         /*
           In `http://www.slideshare.net/{username}/{slidename}`,
@@ -104,7 +86,28 @@
     var navActions = player.querySelector(".navActions");
     navActions.insertBefore(toggleButton, navActions.querySelector(".goToSlideLabel"));
 
+    var tileContainer = document.createElement("div");
+    tileContainer.setAttribute("class", "_tile_container");
+
     function toggleTileMode(){
+        // Make tiles
+        if(!document.querySelector("._tile_container")){
+            var slides = player.querySelectorAll(".slide_container .slide");
+            Array.prototype.forEach.call(slides, function(slide){
+                var img = document.createElement("img");
+                img.setAttribute("src", slide.querySelector("img").dataset.normal);
+                img.dataset.index = slide.dataset.index;
+                tileContainer.appendChild(img);
+            });
+            tileContainer.addEventListener("click", function(event){
+                if(event.target.tagName.toLowerCase() == "img"){
+                    toggleTileMode();
+                    showSlide(event.target.dataset.index);
+                }
+            });
+            player.appendChild(tileContainer);
+        }
+
         tileContainer.setAttribute("style", player.querySelector(".stage").getAttribute("style"));
         player.classList.toggle("_tile_mode");
     }
