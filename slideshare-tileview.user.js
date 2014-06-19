@@ -11,6 +11,7 @@
 (function(){
     var player = document.querySelector(".player");
     if(!player) return;
+    var stage = player.querySelector(".stage");
 
     function showSlide(index){
         /*
@@ -20,23 +21,23 @@
           In `http://www.slideshare.net/fullscreen/...` or
           `http://www.slideshare.net/slideshow/embed_code/...`,
           `player` is a DOM element and we have to call `jsplayer.play`.
-        */
+         */
         location.href = "javascript:(" + function(index){
             (window.jsplayer || window.player).play(index);
         } + ")(" + index +")";
     }
 
-    // Add styles
     var tileWidth = (function(){
         var baseTileWidth = 205;
-        var stageWidth = player.querySelector(".stage").getBoundingClientRect().width;
+        var stageWidth = stage.getBoundingClientRect().width;
         var tileNumInRow = Math.floor(stageWidth / baseTileWidth);
         return (stageWidth - getScrollbarWidth()) / Math.max(tileNumInRow, 2);
     })();
     var style = document.createElement("style");
     style.textContent =
-            "._tile_container {display:none; overflow-y:scroll; position:absolute; top:0;}" +
-            "._tile_mode ._tile_container {display:block;}" +
+            "._tile_container.stage {display:none;}" +
+            "._tile_mode .stage:not(._tile_container) {display:none;}" +
+            "._tile_mode ._tile_container.stage {display:block;}" +
             "._tile_container img {float:left; width:" + tileWidth + "px !important; background:none; display:block; cursor:pointer;}" +
             "._tile_container img:hover {opacity: 0.8;}" +
 
@@ -87,9 +88,10 @@
     navActions.insertBefore(toggleButton, navActions.querySelector(".goToSlideLabel"));
 
     var tileContainer = document.createElement("div");
-    tileContainer.setAttribute("class", "_tile_container");
+    tileContainer.setAttribute("class", "_tile_container stage");
 
-    function toggleTileMode(){
+    function toggleTileMode(event){
+        event.preventDefault();
         // Make tiles
         if(!document.querySelector("._tile_container")){
             var slides = player.querySelectorAll(".slide_container .slide");
@@ -105,10 +107,10 @@
                     showSlide(event.target.dataset.index);
                 }
             });
-            player.appendChild(tileContainer);
+            player.insertBefore(tileContainer, stage);
         }
 
-        tileContainer.setAttribute("style", player.querySelector(".stage").getAttribute("style"));
+        tileContainer.style.maxHeight = stage.getBoundingClientRect().height + 'px';
         player.classList.toggle("_tile_mode");
     }
 })();
